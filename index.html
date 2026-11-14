@@ -4,458 +4,331 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SYSTEM: REBOOT</title>
-  <meta name="description" content="SYSTEM: REBOOT - 4키 · 6키 사이버펑크 리듬 게임">
+  <meta name="description" content="SYSTEM: REBOOT - 4키 · 6키 PC 리듬 게임">
   <link rel="icon" href="assets/img/favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <style>
-/* SYSTEM: REBOOT 웹사이트 공용 스타일 - 게임과 같은 사이버펑크 색 · 각진 패널 */
 :root {
-  --bg: #0b0b10;
-  --bg2: #12121b;
-  --panel: #151522;
-  --line: #2a2a3d;
-  --text: #eef1ff;
-  --muted: #8a8fb3;
-  --cyan: #00e5ff;
-  --pink: #ff2a6d;
-  --amber: #ffb700;
-  --red: #ff1e1e;
-  --cut: 14px;
+  --bg: #0a0a0f;
+  --surface: #13131b;
+  --surface2: #1a1a24;
+  --border: rgba(255, 255, 255, .08);
+  --text: #ececf1;
+  --muted: #8d8d9c;
+  --accent: #00d9f5;
+  --accent-ink: #00141a;
   --wrap: 1120px;
 }
-
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  background-image:
-    linear-gradient(rgba(0, 229, 255, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, .035) 1px, transparent 1px);
-  background-size: 40px 40px;
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px; line-height: 1.65; letter-spacing: -.01em;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
 }
-a { color: var(--cyan); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
-html, body { overflow-x: clip; }
-.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
-.mono { font-family: "JetBrains Mono", Consolas, monospace; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
 
-/* ---------- 상단 메뉴 ---------- */
-.nav {
-  position: sticky; top: 0; z-index: 10;
-  background: rgba(11, 11, 16, .92);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--line);
-}
-.nav .wrap { display: flex; align-items: center; gap: 24px; height: 60px; }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 900; letter-spacing: .04em; }
-.brand:hover { text-decoration: none; }
-.brand img { width: 30px; height: 30px; }
-.brand b { color: var(--cyan); font-weight: 900; }
-.nav ul { display: flex; gap: 4px; list-style: none; margin: 0 0 0 auto; padding: 0; }
-.nav li a {
-  display: block; padding: 8px 14px; color: var(--muted);
-  font-weight: 700; font-size: 14px; letter-spacing: .08em;
-}
-.nav li a:hover { color: var(--text); text-decoration: none; }
-.nav li a.on { color: var(--cyan); box-shadow: inset 0 -2px 0 var(--cyan); }
+/* 상단 메뉴 */
+.nav { position: sticky; top: 0; z-index: 20; background: rgba(10, 10, 15, .8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav .wrap { display: flex; align-items: center; height: 64px; gap: 28px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; letter-spacing: .02em; }
+.brand img { width: 28px; height: 28px; }
+.nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+.nav ul a { display: block; padding: 8px 12px; color: var(--muted); font-size: 15px; font-weight: 600; border-radius: 4px; }
+.nav ul a:hover { color: var(--text); }
+.nav ul a.on { color: var(--text); }
+.nav .btn { margin-left: auto; }
 
-/* ---------- 버튼 ---------- */
+/* 버튼 */
 .btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 28px; font-weight: 900; letter-spacing: .08em; font-size: 16px;
-  color: #001014; background: var(--cyan); border: 0; cursor: pointer;
-  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
-  transition: filter .15s, transform .15s;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; padding: 0 24px; border-radius: 4px;
+  background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 16px;
+  transition: filter .15s;
 }
-.btn:hover { filter: brightness(1.15); text-decoration: none; transform: translateY(-1px); }
-.btn.ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 2px var(--line); }
-.btn.ghost:hover { box-shadow: inset 0 0 0 2px var(--cyan); }
-.btn small { font-weight: 700; opacity: .7; letter-spacing: 0; }
+.btn:hover { filter: brightness(1.1); }
+.btn.sm { height: 38px; padding: 0 16px; font-size: 14px; }
+.btn.line { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25); }
+.btn.line:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6); filter: none; }
 
-/* ---------- 각진 패널 ---------- */
-.panel {
-  position: relative;
-  background: var(--panel);
-  padding: 28px;
-  clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+/* 첫 화면 */
+.hero { position: relative; min-height: min(86vh, 760px); display: flex; align-items: flex-end; overflow: hidden; }
+.hero .bg { position: absolute; inset: 0; z-index: -2; }
+.hero .bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(10, 10, 15, .92) 0%, rgba(10, 10, 15, .7) 45%, rgba(10, 10, 15, .15) 100%),
+    linear-gradient(0deg, var(--bg) 0%, rgba(10, 10, 15, 0) 40%);
 }
-.panel::before {
-  content: ""; position: absolute; left: 0; top: var(--cut); bottom: 0; width: 3px;
-  background: var(--accent, var(--cyan));
+.hero .wrap { width: 100%; padding-bottom: 88px; padding-top: 120px; }
+.eyebrow { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 14px; }
+.hero h1 { margin: 0; font-size: clamp(44px, 7vw, 84px); line-height: 1.02; font-weight: 800; letter-spacing: -.02em; }
+.hero h1 span { color: var(--muted); font-weight: 700; }
+.hero p { max-width: 520px; margin: 22px 0 0; color: #c9c9d4; font-size: 18px; }
+.hero .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px; }
+.hero .meta { margin-top: 18px; color: var(--muted); font-size: 14px; }
+
+/* 섹션 */
+section { padding: 96px 0; }
+.sec-title { margin: 0 0 12px; font-size: clamp(26px, 3.4vw, 34px); font-weight: 800; letter-spacing: -.02em; line-height: 1.3; }
+.sec-desc { margin: 0 0 44px; color: var(--muted); font-size: 17px; max-width: 620px; }
+
+/* 특징 */
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.features div { background: var(--bg); padding: 30px 28px 32px; }
+.features h3 { margin: 0 0 8px; font-size: 18px; font-weight: 700; }
+.features p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* 스크린샷 */
+.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.gallery figure { margin: 0; }
+.gallery img { border-radius: 4px; border: 1px solid var(--border); }
+.gallery figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; }
+
+/* 플레이 영상 */
+.video-sec { padding-bottom: 0; }
+.video { position: relative; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); background: #000; }
+.video iframe, .video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* 게임 화면 슬라이드: 가운데 한 장을 크게, 좌우는 조금만 보이게 */
+.slider { --sw: min(72vw, 960px); --gap: 28px; position: relative; margin: 0 calc(50% - 50vw); }
+.track {
+  display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  padding: 0 calc((100vw - var(--sw)) / 2); scrollbar-width: none; overscroll-behavior-x: contain;
 }
-.tag {
-  display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .14em;
-  color: var(--accent, var(--cyan)); margin-bottom: 6px;
+.track::-webkit-scrollbar { display: none; }
+.slide { flex: 0 0 var(--sw); margin: 0; scroll-snap-align: center; cursor: pointer; transition: opacity .35s, transform .35s; opacity: .3; transform: scale(.92); }
+.slide.on { opacity: 1; transform: none; cursor: default; }
+.slide img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; user-select: none; }
+.slide figcaption { margin-top: 16px; text-align: center; font-size: 16px; font-weight: 600; color: var(--text); opacity: 0; transition: opacity .35s; }
+.slide.on figcaption { opacity: 1; }
+.nav-btn {
+  position: absolute; top: calc(var(--sw) * 9 / 32); transform: translateY(-50%);
+  width: 48px; height: 48px; border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(10, 10, 15, .75); color: var(--text); font-size: 28px; line-height: 1;
+  display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px);
+  transition: background .15s, opacity .15s;
 }
+.nav-btn:hover { background: rgba(10, 10, 15, .95); }
+.nav-btn:disabled { opacity: 0; pointer-events: none; }
+.nav-btn.prev { left: calc((100vw - var(--sw)) / 2 - 24px); }
+.nav-btn.next { right: calc((100vw - var(--sw)) / 2 - 24px); }
+.dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+.dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 4px; background: rgba(255, 255, 255, .22); cursor: pointer; transition: width .2s, background .2s; }
+.dots button[aria-selected="true"] { width: 24px; background: var(--accent); }
 
-/* ---------- 섹션 ---------- */
-section { padding: 72px 0; }
-.sec-head { margin-bottom: 32px; }
-.sec-head .tag { font-size: 13px; }
-.sec-head h2 { margin: 0; font-size: clamp(26px, 4vw, 36px); line-height: 1.25; }
-.sec-head p { margin: 8px 0 0; color: var(--muted); }
+/* 아래 띠 */
+.cta-band { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+.cta-band .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 48px; padding-bottom: 48px; flex-wrap: wrap; }
+.cta-band h2 { margin: 0; font-size: 24px; font-weight: 800; }
+.cta-band p { margin: 4px 0 0; color: var(--muted); }
 
-/* ---------- 메인: 히어로 ---------- */
-.hero { padding: 96px 0 72px; text-align: center; overflow: hidden; }
-.logo { display: inline-block; position: relative; padding: 28px 48px; }
-.logo::before, .logo::after {
-  content: ""; position: absolute; width: 28px; height: 28px; border: 3px solid var(--cyan);
-}
-.logo::before { left: 0; top: 0; border-right: 0; border-bottom: 0; }
-.logo::after { right: 0; bottom: 0; border-left: 0; border-top: 0; }
-.logo .sys { color: var(--cyan); font-weight: 900; letter-spacing: .5em; font-size: clamp(16px, 2.6vw, 24px); margin-right: -.5em; }
-.logo .reboot {
-  font-weight: 900; font-size: clamp(56px, 13vw, 132px); line-height: 1; letter-spacing: -.01em; color: #fff;
-  text-shadow: -5px 0 0 var(--pink), 5px 0 0 var(--cyan);
-}
-.logo .sub { margin-top: 14px; color: var(--muted); font-weight: 700; letter-spacing: .3em; font-size: 14px; }
-.hero .lead { max-width: 640px; margin: 28px auto 0; color: #c7cbe6; font-size: 17px; }
-.hero .cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
-.hero .ver { margin-top: 14px; color: var(--muted); font-size: 13px; }
+/* 공통 페이지 머리 */
+.page-head { padding: 72px 0 8px; }
+.page-head h1 { margin: 0; font-size: clamp(32px, 4.4vw, 44px); font-weight: 800; letter-spacing: -.02em; }
+.page-head p { margin: 10px 0 0; color: var(--muted); font-size: 17px; }
 
-.shot-main { margin-top: 56px; border: 1px solid var(--line); }
+/* 다운로드 */
+.dl-card { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
+.dl-card .ver { font-size: 28px; font-weight: 800; }
+.dl-card .info { color: var(--muted); font-size: 15px; margin-top: 2px; }
+.dl-card .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 22px 0; border-top: 1px solid var(--border); }
+.steps li:last-child { border-bottom: 1px solid var(--border); }
+.steps li::before { content: counter(s); grid-row: span 2; width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); color: var(--accent); font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.steps b { font-weight: 700; }
+.steps span { color: var(--muted); font-size: 15px; }
+.notice { margin-top: 24px; padding: 16px 20px; background: var(--surface); border-left: 3px solid #f5b400; border-radius: 0 4px 4px 0; color: #d6d6de; font-size: 15px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.box { padding: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
+.box h3 { margin: 0 0 14px; font-size: 18px; }
+.box p { margin: 0; color: #c9c9d4; font-size: 15px; }
+.box p + p { margin-top: 10px; }
 
-/* ---------- 특징 카드 ---------- */
-.grid { display: grid; gap: 16px; }
-.g3 { grid-template-columns: repeat(3, 1fr); }
-.g2 { grid-template-columns: repeat(2, 1fr); }
-.feature h3 { margin: 0 0 8px; font-size: 20px; }
-.feature p { margin: 0; color: #c7cbe6; font-size: 15px; }
-
-/* ---------- 스크린샷 ---------- */
-.shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.shots figure { margin: 0; }
-.shots img { border: 1px solid var(--line); }
-.shots figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; }
-
-/* ---------- 표 ---------- */
+/* 표 */
 table { width: 100%; border-collapse: collapse; font-size: 15px; }
-th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { color: var(--muted); font-size: 12px; letter-spacing: .12em; font-weight: 800; }
-td:first-child { white-space: nowrap; font-weight: 800; }
-.table-scroll { overflow-x: auto; }
+th, td { text-align: left; padding: 12px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 13px; }
+td:first-child { width: 150px; padding-right: 16px; font-weight: 600; white-space: nowrap; }
+td { color: #c9c9d4; }
+td:first-child { color: var(--text); }
 
-/* ---------- 키캡 ---------- */
-.keys { display: flex; gap: 8px; flex-wrap: wrap; }
-kbd, .key {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 44px; height: 44px; padding: 0 10px;
-  font: 800 16px "JetBrains Mono", Consolas, monospace; color: var(--text);
-  background: var(--bg2); border: 2px solid var(--line); border-bottom-width: 4px;
-}
-kbd.small { min-width: 0; height: auto; padding: 1px 7px; font-size: 13px; border-width: 1px 1px 2px; }
-.key.c { border-color: var(--cyan); color: var(--cyan); }
-.key.p { border-color: var(--pink); color: var(--pink); }
+/* 가이드 */
+.guide { display: grid; grid-template-columns: 200px 1fr; gap: 56px; align-items: start; }
+.toc { position: sticky; top: 96px; display: grid; gap: 2px; }
+.toc a { padding: 6px 0 6px 14px; color: var(--muted); font-size: 14px; border-left: 2px solid var(--border); }
+.toc a:hover { color: var(--text); border-color: var(--accent); }
+.g { padding-bottom: 64px; scroll-margin-top: 90px; }
+.g h2 { margin: 0 0 10px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+.g > p { margin: 0 0 18px; color: #c9c9d4; }
+.g img { border-radius: 4px; border: 1px solid var(--border); margin: 4px 0 20px; }
+.keys { display: flex; gap: 6px; flex-wrap: wrap; }
+kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 40px; padding: 0 10px; border-radius: 4px; background: var(--surface2); border: 1px solid rgba(255, 255, 255, .14); border-bottom-width: 3px; font: 600 15px "Pretendard", sans-serif; color: var(--text); }
+kbd.s { min-width: 0; height: auto; padding: 1px 7px; font-size: 13px; border-bottom-width: 2px; }
+.keyrow { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.keyrow:first-child { border-top: 1px solid var(--border); }
+.keyrow .lab { width: 60px; color: var(--muted); font-weight: 600; font-size: 14px; }
+.judge { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+.judge div { padding: 14px; background: var(--surface); border-radius: 4px; font-weight: 700; font-size: 15px; }
+.judge small { display: block; color: var(--muted); font-weight: 500; font-size: 13px; }
+details { border-bottom: 1px solid var(--border); }
+details:first-of-type { border-top: 1px solid var(--border); }
+summary { padding: 16px 0; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--muted); font-weight: 400; }
+details[open] summary::after { content: "−"; }
+details p { margin: 0 0 18px; color: #c9c9d4; font-size: 15px; }
+.g a, .steps a, details a { color: var(--accent); }
 
-/* ---------- 다운로드 ---------- */
-.dl-box { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
-.dl-box h2 { margin: 0; font-size: 28px; }
-.dl-box .meta { color: var(--muted); font-size: 14px; margin-top: 4px; }
-.steps { counter-reset: s; list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-.steps li { counter-increment: s; position: relative; padding: 16px 16px 16px 64px; background: var(--panel); }
-.steps li::before {
-  content: counter(s, decimal-leading-zero); position: absolute; left: 16px; top: 14px;
-  font: 900 22px "JetBrains Mono", Consolas, monospace; color: var(--cyan);
-}
-.steps li b { display: block; }
-.steps li span { color: #c7cbe6; font-size: 15px; }
-.note { border-left: 3px solid var(--amber); background: rgba(255, 183, 0, .07); padding: 14px 18px; color: #e9dcb8; font-size: 15px; }
-.note b { color: var(--amber); }
-
-/* ---------- 가이드 ---------- */
-.guide-layout { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
-.toc { position: sticky; top: 84px; display: grid; gap: 2px; }
-.toc a { display: block; padding: 8px 12px; color: var(--muted); font-size: 14px; font-weight: 700; border-left: 2px solid var(--line); }
-.toc a:hover { color: var(--text); border-color: var(--cyan); text-decoration: none; }
-.g-sec { padding: 0 0 56px; scroll-margin-top: 84px; }
-.g-sec h2 { margin: 0 0 6px; font-size: 26px; }
-.g-sec > p { color: #c7cbe6; margin: 0 0 18px; }
-.g-sec img { border: 1px solid var(--line); margin: 6px 0 18px; }
-.judge { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0 18px; }
-.judge div { background: var(--panel); padding: 14px; text-align: center; font-weight: 900; letter-spacing: .06em; }
-.judge small { display: block; color: var(--muted); font-weight: 600; letter-spacing: 0; font-size: 13px; }
-.faq details { background: var(--panel); margin-bottom: 8px; }
-.faq summary { padding: 14px 18px; cursor: pointer; font-weight: 800; }
-.faq details p { margin: 0; padding: 0 18px 16px; color: #c7cbe6; }
-
-/* ---------- 바닥 ---------- */
-footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 13px; }
+/* 바닥 */
+footer { padding: 36px 0 48px; color: var(--muted); font-size: 14px; }
 footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer a:hover { color: var(--text); }
 
-/* ---------- 폰 화면 ---------- */
+/* 폰 */
 @media (max-width: 820px) {
-  .g3, .g2, .shots { grid-template-columns: 1fr; }
-  .dl-box { grid-template-columns: 1fr; }
-  .guide-layout { grid-template-columns: 1fr; }
-  .toc { position: static; grid-template-columns: repeat(2, 1fr); }
-  .judge { grid-template-columns: repeat(2, 1fr); }
   .nav .wrap { gap: 12px; }
   .brand span { display: none; }
-  .nav li a { padding: 8px 10px; font-size: 13px; }
-  section { padding: 56px 0; }
-  .hero { padding: 56px 0 48px; }
-  .logo { padding: 20px 18px; }
-  .logo .reboot { font-size: 15vw; text-shadow: -3px 0 0 var(--pink), 3px 0 0 var(--cyan); }
-  .logo .sub { letter-spacing: .2em; font-size: 12px; }
-  .hero .lead { font-size: 15px; }
-  .hero .lead br { display: none; }
-  .shot-main { margin-top: 36px; }
-  .keys { gap: 6px; }
-  .key { min-width: 38px; height: 40px; padding: 0 6px; font-size: 15px; }
+  .nav ul a { padding: 8px; font-size: 14px; }
+  .nav .btn { display: none; }
+  .hero { min-height: 0; }
+  .hero::before { background: linear-gradient(0deg, var(--bg) 8%, rgba(10, 10, 15, .72) 100%); }
+  .hero .wrap { padding-top: 96px; padding-bottom: 56px; }
+  .hero p { font-size: 16px; }
+  section { padding: 64px 0; }
+  .features, .gallery, .two { grid-template-columns: 1fr; }
+  .guide { grid-template-columns: 1fr; gap: 24px; }
+  .toc { position: static; grid-template-columns: 1fr 1fr; }
+  .judge { grid-template-columns: 1fr 1fr; }
+  td:first-child { width: auto; }
+  .dl-card { padding: 24px; }
+  .slider { --sw: 80vw; --gap: 12px; }
+  .nav-btn { display: none; }
+  .slide figcaption { font-size: 15px; margin-top: 12px; }
 }
-
-/* ===== 꾸미기: 게임 화면의 모양(스펙트럼 막대 · SYSTEM LOG · 모서리 브래킷 · 막대 장식 · 회로 무늬) ===== */
-.hero { position: relative; isolation: isolate; }
-.circuit { position: absolute; top: 40px; width: 420px; height: 560px; z-index: -1; opacity: .5; pointer-events: none; }
-.circuit.l { left: -60px; }
-.circuit.r { right: -60px; transform: scaleX(-1); }
-.circuit path { fill: none; stroke-width: 7; stroke-linejoin: miter; stroke-linecap: square; }
-.circuit rect { stroke: none; }
-
-.spectrum { display: flex; align-items: center; justify-content: center; gap: 3px; margin-top: 14px; }
-.spectrum .sub { margin: 0; }
-.bars { display: flex; align-items: center; gap: 3px; height: 34px; }
-.bars i { display: block; width: 4px; height: 100%; background: linear-gradient(var(--cyan), var(--pink)); transform-origin: center; animation: eq 1.1s ease-in-out infinite alternate; }
-.bars.r { flex-direction: row-reverse; }
-@keyframes eq { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
-
-.bootlog {
-  max-width: 520px; margin: 30px auto 0; padding: 12px 16px; text-align: left;
-  font: 700 12px/1.8 "JetBrains Mono", Consolas, monospace; color: #c7cbe6;
-  background: rgba(21, 21, 34, .85); border-left: 3px solid var(--cyan);
-}
-.bootlog .h { color: var(--muted); letter-spacing: .12em; }
-.bootlog div { opacity: 0; animation: logIn .01s forwards; }
-.bootlog b { color: #4dff9a; font-weight: 800; }
-.bootlog .cur::after { content: "_"; animation: blink 1s steps(1) infinite; }
-@keyframes logIn { to { opacity: 1; } }
-@keyframes blink { 50% { opacity: 0; } }
-
-.frame { position: relative; padding: 10px; }
-.frame::before, .frame::after { content: ""; position: absolute; width: 26px; height: 26px; border: 3px solid var(--accent, var(--cyan)); pointer-events: none; }
-.frame::before { left: 0; top: 0; border-right: 0; border-bottom: 0; }
-.frame::after { right: 0; bottom: 0; border-left: 0; border-top: 0; }
-.frame .lbl { position: absolute; right: 12px; top: -10px; padding: 0 8px; background: var(--bg); color: var(--accent, var(--cyan)); font: 800 11px "JetBrains Mono", Consolas, monospace; letter-spacing: .14em; }
-.frame img { border: 1px solid var(--line); }
-.hero .frame { margin-top: 56px; }
-.hero .frame .shot-main { margin-top: 0; }
-.shots .frame:nth-child(even) { --accent: var(--pink); }
-
-.sec-head h2::after {
-  content: ""; display: block; width: 132px; height: 5px; margin-top: 14px;
-  background:
-    linear-gradient(90deg, var(--cyan) 0 56px, transparent 56px 64px, var(--cyan) 64px 76px, transparent 76px 84px, var(--pink) 84px 132px);
-}
-
-.feature { transition: transform .18s, background .18s; overflow: hidden; }
-.feature:hover { transform: translateY(-3px); background: #1a1a2a; }
-.feature::after {
-  content: attr(data-n); position: absolute; right: 14px; bottom: -14px;
-  font: 900 88px/1 "JetBrains Mono", Consolas, monospace; color: var(--accent, var(--cyan)); opacity: .07; pointer-events: none;
-}
-
-.divider { height: 14px; margin: 0 auto; max-width: var(--wrap);
-  background: repeating-linear-gradient(-45deg, rgba(255, 42, 109, .5) 0 6px, transparent 6px 14px);
-  clip-path: polygon(16px 0, 40% 0, 40% 100%, 0 100%); opacity: .6; }
-
-@media (prefers-reduced-motion: reduce) {
-  .bars i, .bootlog div, .bootlog .cur::after { animation: none; opacity: 1; }
-}
-@media (max-width: 820px) {
-  .circuit { width: 260px; height: 360px; opacity: .3; }
-  .circuit.l { left: -120px; } .circuit.r { right: -120px; }
-  .bars { height: 24px; gap: 2px; } .bars i { width: 3px; }
-  .spectrum { gap: 2px; }
-  .bars i:nth-child(n+19) { display: none; }
-  .bootlog { font-size: 11px; }
-}
-
   </style>
 </head>
 <body>
   <nav class="nav">
     <div class="wrap">
-      <a class="brand" href="#home"><img src="assets/img/favicon.png" alt=""><span>SYSTEM:<b>REBOOT</b></span></a>
+      <a class="brand" href="#home"><img src="assets/img/favicon.png" alt=""><span>SYSTEM: REBOOT</span></a>
       <ul>
-        <li><a href="#home" data-page="home">HOME</a></li>
-        <li><a href="#download" data-page="download">DOWNLOAD</a></li>
-        <li><a href="#guide" data-page="guide">GUIDE</a></li>
+        <li><a href="#home" data-page="home">홈</a></li>
+        <li><a href="#download" data-page="download">다운로드</a></li>
+        <li><a href="#guide" data-page="guide">가이드</a></li>
       </ul>
+      <a class="btn sm" href="#download">무료 다운로드</a>
     </div>
   </nav>
 
+  <!-- ===== 홈 ===== -->
   <main class="page" id="home">
-<header class="hero">
-    <svg class="circuit l" viewBox="0 0 420 560" aria-hidden="true">
-          <path stroke="#00e5ff" d="M0 90 H150 L190 130 V250 L230 290 H330"/>
-          <path stroke="#00e5ff" d="M0 180 H90 L130 220 V420 L170 460 H260"/>
-          <path stroke="#ff2a6d" d="M0 330 H50 L90 370 V520"/>
-          <path stroke="#2a2a3d" d="M0 260 H60 M260 60 H360 L400 100 V200"/>
-          <rect x="322" y="280" width="20" height="20" fill="#00e5ff"/>
-          <rect x="252" y="450" width="20" height="20" fill="#00e5ff"/>
-          <rect x="80" y="512" width="20" height="20" fill="#ff2a6d"/>
-          <rect x="390" y="192" width="20" height="20" fill="#2a2a3d"/>
-        </svg>
-    <svg class="circuit r" viewBox="0 0 420 560" aria-hidden="true">
-          <path stroke="#00e5ff" d="M0 90 H150 L190 130 V250 L230 290 H330"/>
-          <path stroke="#00e5ff" d="M0 180 H90 L130 220 V420 L170 460 H260"/>
-          <path stroke="#ff2a6d" d="M0 330 H50 L90 370 V520"/>
-          <path stroke="#2a2a3d" d="M0 260 H60 M260 60 H360 L400 100 V200"/>
-          <rect x="322" y="280" width="20" height="20" fill="#00e5ff"/>
-          <rect x="252" y="450" width="20" height="20" fill="#00e5ff"/>
-          <rect x="80" y="512" width="20" height="20" fill="#ff2a6d"/>
-          <rect x="390" y="192" width="20" height="20" fill="#2a2a3d"/>
-        </svg>
-    <div class="wrap">
-      <div class="logo">
-        <div class="sys">SYSTEM:</div>
-        <div class="reboot">REBOOT</div>
-        <div class="spectrum"><div class="bars l"><i style="animation-delay:-0.32s;animation-duration:0.81s"></i><i style="animation-delay:-0.65s;animation-duration:0.75s"></i><i style="animation-delay:-0.54s;animation-duration:0.96s"></i><i style="animation-delay:-0.06s;animation-duration:1.06s"></i><i style="animation-delay:-0.04s;animation-duration:1.00s"></i><i style="animation-delay:-0.07s;animation-duration:0.76s"></i><i style="animation-delay:-0.42s;animation-duration:1.28s"></i><i style="animation-delay:-0.12s;animation-duration:0.86s"></i><i style="animation-delay:-0.63s;animation-duration:1.36s"></i><i style="animation-delay:-0.58s;animation-duration:0.98s"></i><i style="animation-delay:-0.98s;animation-duration:0.73s"></i><i style="animation-delay:-0.86s;animation-duration:0.90s"></i><i style="animation-delay:-0.14s;animation-duration:0.78s"></i><i style="animation-delay:-0.31s;animation-duration:1.27s"></i><i style="animation-delay:-0.18s;animation-duration:1.11s"></i><i style="animation-delay:-0.64s;animation-duration:0.96s"></i><i style="animation-delay:-0.55s;animation-duration:0.74s"></i><i style="animation-delay:-0.06s;animation-duration:0.84s"></i><i style="animation-delay:-0.68s;animation-duration:1.00s"></i><i style="animation-delay:-0.31s;animation-duration:1.11s"></i><i style="animation-delay:-0.45s;animation-duration:0.91s"></i><i style="animation-delay:-0.79s;animation-duration:1.19s"></i><i style="animation-delay:-0.24s;animation-duration:1.10s"></i><i style="animation-delay:-0.53s;animation-duration:1.31s"></i><i style="animation-delay:-0.73s;animation-duration:0.90s"></i><i style="animation-delay:-0.98s;animation-duration:0.78s"></i><i style="animation-delay:-0.42s;animation-duration:1.23s"></i><i style="animation-delay:-0.15s;animation-duration:1.04s"></i><i style="animation-delay:-0.04s;animation-duration:1.17s"></i><i style="animation-delay:-0.76s;animation-duration:1.10s"></i></div><div class="bars r"><i style="animation-delay:-0.45s;animation-duration:1.09s"></i><i style="animation-delay:-0.92s;animation-duration:1.03s"></i><i style="animation-delay:-0.51s;animation-duration:1.11s"></i><i style="animation-delay:-0.18s;animation-duration:1.06s"></i><i style="animation-delay:-0.63s;animation-duration:1.26s"></i><i style="animation-delay:-0.09s;animation-duration:0.91s"></i><i style="animation-delay:-0.09s;animation-duration:1.27s"></i><i style="animation-delay:-0.69s;animation-duration:0.73s"></i><i style="animation-delay:-0.98s;animation-duration:1.38s"></i><i style="animation-delay:-0.65s;animation-duration:1.13s"></i><i style="animation-delay:-0.16s;animation-duration:0.71s"></i><i style="animation-delay:-0.53s;animation-duration:0.74s"></i><i style="animation-delay:-0.19s;animation-duration:0.87s"></i><i style="animation-delay:-0.03s;animation-duration:1.02s"></i><i style="animation-delay:-0.44s;animation-duration:1.29s"></i><i style="animation-delay:-0.52s;animation-duration:1.15s"></i><i style="animation-delay:-0.50s;animation-duration:1.16s"></i><i style="animation-delay:-0.46s;animation-duration:0.89s"></i><i style="animation-delay:-1.00s;animation-duration:1.40s"></i><i style="animation-delay:-0.84s;animation-duration:1.20s"></i><i style="animation-delay:-0.32s;animation-duration:0.86s"></i><i style="animation-delay:-0.29s;animation-duration:0.75s"></i><i style="animation-delay:-0.77s;animation-duration:0.98s"></i><i style="animation-delay:-0.85s;animation-duration:0.97s"></i><i style="animation-delay:-0.96s;animation-duration:1.29s"></i><i style="animation-delay:-0.00s;animation-duration:0.85s"></i><i style="animation-delay:-0.91s;animation-duration:1.03s"></i><i style="animation-delay:-0.98s;animation-duration:0.98s"></i><i style="animation-delay:-0.07s;animation-duration:1.14s"></i><i style="animation-delay:-0.78s;animation-duration:0.89s"></i></div></div>
+    <header class="hero">
+      <div class="bg"><img src="assets/img/play.jpg" alt=""></div>
+      <div class="wrap">
+        <div class="eyebrow">PC 리듬 게임 · 무료</div>
+        <h1>SYSTEM:<br>REBOOT</h1>
+        <p>떨어지는 노트를 판정선에 맞춰 치는 4키 · 6키 리듬 게임입니다. 곡마다 BASE · LOAD · OVERCLOCK 세 난이도가 있습니다.</p>
+        <div class="cta">
+          <a class="btn" href="#download">무료 다운로드</a>
+          <a class="btn line" href="#guide">플레이 가이드</a>
+        </div>
+        <div class="meta">v<span data-site="VERSION"></span> · Windows 10 · 11</div>
       </div>
-      <p class="lead">떨어지는 노트를 판정선에 맞춰 치는 4키 · 6키 리듬 게임입니다.<br>
-        곡마다 BASE · LOAD · OVERCLOCK 세 난이도가 있고, 레벨은 1부터 20까지입니다.</p>
-      <div class="cta">
-        <a class="btn" href="#download">DOWNLOAD <small>Windows</small></a>
-        <a class="btn ghost" href="#guide">처음이라면 GUIDE</a>
-      </div>
-      <div class="ver mono">v<span data-site="VERSION"></span> · <span data-site="DATE"></span></div>
-      <div class="bootlog" aria-hidden="true">
-        <div class="h" style="animation-delay:.1s">// SYSTEM LOG</div>
-        <div style="animation-delay:.35s">[ <b>OK</b> ] KERNEL · SYSTEM REBOOT v<span data-site="VERSION"></span></div>
-        <div style="animation-delay:.6s">[ <b>OK</b> ] KEY MODE · 4K / 6K</div>
-        <div style="animation-delay:.85s">[ <b>OK</b> ] TRACK DB · 16 TRACKS ONLINE</div>
-        <div class="cur" style="animation-delay:1.1s">[ .. ] AWAITING CONNECTION</div>
-      </div>
-      <div class="frame"><span class="lbl">REC // PLAY</span><img class="shot-main" src="assets/img/play.jpg" alt="플레이 화면" width="1600" height="900"></div>
-    </div>
-  </header>
+    </header>
 
-  <section>
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="tag">// FEATURES</div>
-        <h2>이런 게임입니다</h2>
+    <section class="video-sec" hidden>
+      <div class="wrap">
+        <h2 class="sec-title">플레이 영상</h2>
+        <p class="sec-desc">실제로 치는 모습입니다. 소리를 켜고 보십시오.</p>
+        <div class="video"></div>
       </div>
-      <div class="grid g3">
-        <div class="panel feature" data-n="01">
-          <div class="tag">01 · PLAY</div>
-          <h3>4키 · 6키</h3>
-          <p>같은 곡을 4키와 6키 채보로 따로 칩니다. 판정 모드 6가지와 게이지 3가지(NORMAL · HARD · SUDDEN DEATH)로 난이도를 직접 고를 수 있습니다.</p>
-        </div>
-        <div class="panel feature" data-n="02" style="--accent: var(--pink)">
-          <div class="tag">02 · RANKING</div>
-          <h3>랭킹 · 온라인</h3>
-          <p>2주마다 바뀌는 랭킹 곡으로 전체 · 친구 순위를 겨룹니다. 같은 PC 2인 플레이와 최대 5명 온라인 대전도 있습니다.</p>
-        </div>
-        <div class="panel feature" data-n="03" style="--accent: var(--amber)">
-          <div class="tag">03 · CREATE</div>
-          <h3>채보 · 스킨</h3>
-          <p>채보 에디터로 내 채보를 만들고, 커스텀 코스를 짜고, 곡 · 스킨 · 코스를 zip 하나로 친구와 나눌 수 있습니다.</p>
-        </div>
-        <div class="panel feature" data-n="04" style="--accent: var(--pink)">
-          <div class="tag">04 · GROWTH</div>
-          <h3>성장과 상점</h3>
-          <p>플레이 · 미션 · 업적으로 경험치와 TOKEN을 모아 노트 · 기어 · 타이틀 스킨을 삽니다. 곡마다 숙련도도 쌓입니다.</p>
-        </div>
-        <div class="panel feature" data-n="05">
-          <div class="tag">05 · REPLAY</div>
-          <h3>리플레이 · 고스트</h3>
-          <p>모든 판이 리플레이로 남습니다. 내 최고 기록 고스트와 나란히 치고, 판정 분석으로 빠르게 · 느리게 친 곳을 확인합니다.</p>
-        </div>
-        <div class="panel feature" data-n="06" style="--accent: var(--amber)">
-          <div class="tag">06 · GUIDE</div>
-          <h3>초급부터 상급까지</h3>
-          <p>게임 안 가이드에서 단노트부터 트릴 · 데님 · 변속 · 기울기까지 직접 쳐 보며 배웁니다.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section style="padding-top: 0">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="tag">// SCREENSHOTS</div>
-        <h2>게임 화면</h2>
+    <section>
+      <div class="wrap">
+        <h2 class="sec-title">이런 게임입니다</h2>
+        <p class="sec-desc">혼자 실력을 쌓는 것부터 친구와 겨루고, 직접 채보를 만드는 것까지 할 수 있습니다.</p>
+        <div class="features">
+          <div><h3>4키 · 6키</h3><p>같은 곡을 4키와 6키로 따로 칩니다. 판정 모드 6가지와 게이지 3가지로 난이도를 고릅니다.</p></div>
+          <div><h3>랭킹 · 온라인</h3><p>2주마다 바뀌는 랭킹 곡으로 전체 · 친구 순위를 겨룹니다. 2인 플레이와 최대 5명 온라인 대전도 있습니다.</p></div>
+          <div><h3>채보 에디터</h3><p>내 채보를 만들고 커스텀 코스를 짭니다. 곡 · 스킨 · 코스는 zip 하나로 친구와 나눌 수 있습니다.</p></div>
+          <div><h3>성장과 상점</h3><p>플레이 · 미션 · 업적으로 모은 TOKEN으로 노트 · 기어 · 타이틀 스킨을 삽니다.</p></div>
+          <div><h3>리플레이 · 고스트</h3><p>모든 판이 리플레이로 남습니다. 최고 기록 고스트와 나란히 치고 판정 분석을 봅니다.</p></div>
+          <div><h3>단계별 가이드</h3><p>단노트부터 트릴 · 데님 · 변속까지 게임 안에서 직접 쳐 보며 배웁니다.</p></div>
+        </div>
       </div>
-      <div class="shots">
-        <figure><div class="frame"><span class="lbl">SELECT</span><img src="assets/img/select.jpg" alt="곡 선택 화면" loading="lazy"></div><figcaption>곡 선택</figcaption></figure>
-        <figure><div class="frame"><span class="lbl">RESULT</span><img src="assets/img/result.jpg" alt="결과 화면" loading="lazy"></div><figcaption>결과 · 판정 분석</figcaption></figure>
-        <figure><div class="frame"><span class="lbl">TITLE</span><img src="assets/img/title.jpg" alt="메인 화면" loading="lazy"></div><figcaption>메인 화면</figcaption></figure>
-        <figure><div class="frame"><span class="lbl">SHOP</span><img src="assets/img/shop.jpg" alt="상점 화면" loading="lazy"></div><figcaption>상점 NEON MARKET</figcaption></figure>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section style="padding-top: 0">
-    <div class="wrap">
-      <div class="panel dl-box">
+    <section style="padding-top: 0">
+      <div class="wrap">
+        <h2 class="sec-title">게임 화면</h2>
+        <p class="sec-desc">지금 버전의 실제 화면입니다.</p>
+        <div class="slider" aria-roledescription="carousel">
+          <div class="track">
+            <figure class="slide"><img src="assets/img/play.jpg" alt="플레이 화면" loading="lazy" draggable="false"><figcaption>플레이</figcaption></figure>
+            <figure class="slide"><img src="assets/img/title.jpg" alt="메인 화면 화면" loading="lazy" draggable="false"><figcaption>메인 화면</figcaption></figure>
+            <figure class="slide"><img src="assets/img/select.jpg" alt="곡 선택 화면" loading="lazy" draggable="false"><figcaption>곡 선택</figcaption></figure>
+            <figure class="slide"><img src="assets/img/result.jpg" alt="결과 화면" loading="lazy" draggable="false"><figcaption>결과</figcaption></figure>
+            <figure class="slide"><img src="assets/img/shop.jpg" alt="상점 화면" loading="lazy" draggable="false"><figcaption>상점</figcaption></figure>
+          </div>
+          <button class="nav-btn prev" type="button" aria-label="이전 화면">&#8249;</button>
+          <button class="nav-btn next" type="button" aria-label="다음 화면">&#8250;</button>
+          <div class="dots" role="tablist"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-band">
+      <div class="wrap">
         <div>
-          <div class="tag">// GET THE GAME</div>
-          <h2>지금 받아서 시작하십시오</h2>
-          <div class="meta">Windows 64비트 · 무료 · zip을 풀고 바로 실행</div>
+          <h2>지금 무료로 시작하십시오</h2>
+          <p>Windows 64비트 · zip을 풀고 바로 실행</p>
         </div>
-        <a class="btn" href="#download">DOWNLOAD</a>
+        <a class="btn" href="#download">무료 다운로드</a>
       </div>
     </div>
-  </section>
   </main>
+
+  <!-- ===== 다운로드 ===== -->
   <main class="page" id="download">
-<section>
     <div class="wrap">
-      <div class="sec-head">
-        <div class="tag">// DOWNLOAD</div>
-        <h2>내려받기</h2>
-      </div>
-
-      <div class="panel dl-box">
-        <div>
-          <div class="tag">LATEST</div>
-          <h2 class="mono">v<span data-site="VERSION"></span></h2>
-          <div class="meta"><span data-site="DATE"></span> · Windows 64비트 · zip <span data-site="SIZE"></span></div>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <a class="btn" data-link="zip" href="#">DOWNLOAD ZIP</a>
-          <a class="btn ghost" data-link="releases" href="#">예전 버전</a>
-        </div>
+      <div class="page-head">
+        <h1>다운로드</h1>
+        <p>zip을 받아 풀고 실행하면 됩니다. 설치 과정은 없습니다.</p>
       </div>
     </div>
-  </section>
+    <section style="padding-top: 32px">
+      <div class="wrap">
+        <div class="dl-card">
+          <div>
+            <div class="ver">v<span data-site="VERSION"></span></div>
+            <div class="info"><span data-site="DATE"></span> · Windows 64비트 · zip <span data-site="SIZE"></span></div>
+          </div>
+          <div class="btns">
+            <a class="btn" data-link="zip" href="#">zip 다운로드</a>
+            <a class="btn line" data-link="releases" href="#">예전 버전</a>
+          </div>
+        </div>
 
-  <section style="padding-top: 0">
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="tag">// INSTALL</div>
-        <h2>설치 방법</h2>
-      </div>
-      <ol class="steps">
-        <li><b>zip을 받습니다</b><span>위의 DOWNLOAD ZIP을 누르면 구글 드라이브가 열립니다. 오른쪽 위 다운로드 버튼을 누르고, "바이러스 검사를 할 수 없음" 안내가 나오면 <b style="display:inline">무시하고 다운로드</b>를 누릅니다(파일이 커서 나오는 안내입니다).</span></li>
-        <li><b>압축을 풉니다</b><span>zip을 오른쪽 클릭 → 전체 압축 풀기. 바탕화면이나 문서처럼 쓰기 권한이 있는 폴더에 푸십시오(Program Files는 피하십시오).</span></li>
-        <li><b>SYSTEM_REBOOT.exe를 실행합니다</b><span>처음 실행하면 로그인 창이 나옵니다. 아이디로 로그인하면 다른 PC에서도 기록을 이어서 쓸 수 있고, 비회원으로도 시작할 수 있습니다.</span></li>
-        <li><b>싱크를 맞춥니다</b><span>처음 한 번은 설정에서 SYNC를 맞추면 판정이 훨씬 편해집니다. 자세한 내용은 <a href="#sync">가이드</a>에 있습니다.</span></li>
-      </ol>
-      <p class="note" style="margin-top:20px">
-        <b>"Windows의 PC 보호" 창이 뜨면</b> — 개인이 만든 게임이라 서명이 없어서 뜨는 창입니다.
-        <b>추가 정보</b>를 누른 뒤 <b>실행</b>을 누르면 됩니다.
-      </p>
-    </div>
-  </section>
+        <h2 class="sec-title" style="margin-top: 72px">설치 방법</h2>
+        <ol class="steps">
+          <li><b>zip을 받습니다</b><span>위의 버튼을 누르면 구글 드라이브가 열립니다. 오른쪽 위 다운로드를 누르고, "바이러스 검사를 할 수 없음" 안내가 나오면 '무시하고 다운로드'를 누릅니다. 파일이 커서 나오는 안내입니다.</span></li>
+          <li><b>압축을 풉니다</b><span>zip을 오른쪽 클릭 → 전체 압축 풀기. 바탕화면이나 문서처럼 쓰기 권한이 있는 폴더에 푸십시오(Program Files는 피하십시오).</span></li>
+          <li><b>SYSTEM_REBOOT.exe를 실행합니다</b><span>처음 실행하면 로그인 창이 나옵니다. 아이디로 로그인하면 다른 PC에서도 기록을 이어서 쓸 수 있고, 비회원으로도 시작할 수 있습니다.</span></li>
+          <li><b>싱크를 맞춥니다</b><span>처음 한 번 설정에서 SYNC를 맞추면 판정이 훨씬 편해집니다. <a href="#sync">싱크 맞추는 법</a></span></li>
+        </ol>
+        <div class="notice"><b>"Windows의 PC 보호" 창이 뜨면</b> 추가 정보 → 실행을 누르십시오. 개인이 만든 게임이라 서명이 없어서 뜨는 창입니다.</div>
 
-  <section style="padding-top: 0">
-    <div class="wrap">
-      <div class="grid g2">
-        <div class="panel">
-          <div class="tag">// SPEC</div>
-          <h3 style="margin:0 0 12px">필요한 사양</h3>
-          <div class="table-scroll">
+        <div class="two" style="margin-top: 72px">
+          <div class="box">
+            <h3>필요한 사양</h3>
             <table>
               <tr><td>OS</td><td>Windows 10 · 11 (64비트)</td></tr>
               <tr><td>그래픽</td><td>DirectX 11 지원 (내장 그래픽 가능)</td></tr>
@@ -463,29 +336,26 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
               <tr><td>입력</td><td>키보드</td></tr>
             </table>
           </div>
+          <div class="box">
+            <h3>업데이트할 때</h3>
+            <p>새 버전 zip을 받아 새 폴더에 풀고 실행하면 됩니다. 세이브는 게임 폴더가 아니라 PC에 따로 저장되므로 기록은 그대로 이어집니다.</p>
+            <p>예전 폴더는 지워도 됩니다.</p>
+          </div>
         </div>
-        <div class="panel" style="--accent: var(--pink)">
-          <div class="tag">// UPDATE</div>
-          <h3 style="margin:0 0 12px">업데이트할 때</h3>
-          <p style="margin:0; color:#c7cbe6">새 버전 zip을 받아 <b>새 폴더</b>에 풀고 실행하면 됩니다.
-            세이브는 게임 폴더가 아니라 PC에 따로 저장되므로 기록은 그대로 이어집니다.
-            예전 폴더는 지워도 됩니다.</p>
-          <p style="margin:12px 0 0; color:#c7cbe6">새 버전으로 처음 들어가면 메인 화면에 업데이트 소식 창이 한 번 나옵니다.</p>
-        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== 가이드 ===== -->
+  <main class="page" id="guide">
+    <div class="wrap">
+      <div class="page-head">
+        <h1>플레이 가이드</h1>
+        <p>게임 안의 GUIDE 메뉴에서는 패턴을 직접 쳐 보며 배울 수 있습니다. 여기는 그 내용을 간단히 정리한 것입니다.</p>
       </div>
     </div>
-  </section>
-  </main>
-  <main class="page" id="guide">
-<section>
-    <div class="wrap">
-      <div class="sec-head">
-        <div class="tag">// GUIDE</div>
-        <h2>플레이 가이드</h2>
-        <p>게임 안의 GUIDE 메뉴에서는 패턴을 직접 쳐 보며 배울 수 있습니다. 이 페이지는 그 내용을 간단히 정리한 것입니다.</p>
-      </div>
-
-      <div class="guide-layout">
+    <section style="padding-top: 40px">
+      <div class="wrap guide">
         <nav class="toc">
           <a href="#keys">기본 키</a>
           <a href="#judge">판정과 점수</a>
@@ -493,144 +363,101 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
           <a href="#gauge">HP 게이지</a>
           <a href="#hotkeys">플레이 중 단축키</a>
           <a href="#sync">싱크 맞추기</a>
-          <a href="#select">곡 고르기</a>
-          <a href="#result">결과 · 리플레이</a>
           <a href="#faq">자주 묻는 질문</a>
         </nav>
-
         <div>
-          <div class="g-sec" id="keys">
-            <div class="tag">01</div>
+          <div class="g" id="keys">
             <h2>기본 키</h2>
-            <p>노트가 위에서 내려옵니다. 노트가 아래 <b style="color:var(--cyan)">판정선</b>에 닿는 순간 그 레인의 키를 누르면 됩니다. 키는 설정 PLAY › KEY CONFIG에서 바꿀 수 있습니다.</p>
-            <div class="panel" style="display:grid; gap:18px">
-              <div>
-                <div class="tag">4 KEY</div>
-                <div class="keys"><span class="key c">S</span><span class="key c">D</span><span class="key c">K</span><span class="key c">L</span></div>
-              </div>
-              <div>
-                <div class="tag" style="color:var(--pink)">6 KEY</div>
-                <div class="keys"><span class="key p">S</span><span class="key p">D</span><span class="key p">F</span><span class="key p">J</span><span class="key p">K</span><span class="key p">L</span></div>
-              </div>
-            </div>
-            <p style="margin-top:18px">롱노트는 머리가 닿을 때 누르고, <b>꼬리가 판정선을 지날 때까지</b> 누르고 있어야 합니다. 일찍 떼면 ERROR입니다.</p>
+            <p>노트가 판정선에 닿는 순간 그 레인의 키를 누릅니다. 롱노트는 꼬리가 판정선을 지날 때까지 누르고 있어야 합니다. 키는 설정 PLAY › KEY CONFIG에서 바꿀 수 있습니다.</p>
+            <div class="keyrow"><span class="lab">4키</span><div class="keys"><kbd>S</kbd><kbd>D</kbd><kbd>K</kbd><kbd>L</kbd></div></div>
+            <div class="keyrow"><span class="lab">6키</span><div class="keys"><kbd>S</kbd><kbd>D</kbd><kbd>F</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></div></div>
           </div>
 
-          <div class="g-sec" id="judge">
-            <div class="tag">02</div>
+          <div class="g" id="judge">
             <h2>판정과 점수</h2>
-            <p>정확한 순서대로 판정이 나옵니다. 놓치면 ERROR이고, 콤보가 0으로 돌아갑니다.</p>
+            <p>정확한 순서대로 판정이 나옵니다. 놓치면 ERROR이고 콤보가 끊깁니다.</p>
             <div class="judge">
-              <div style="color:var(--cyan)">CRITICAL<small>가장 정확</small></div>
-              <div style="color:#ff0080">SYNCED<small>조금 어긋남</small></div>
-              <div style="color:var(--amber)">STABLE<small>많이 어긋남</small></div>
-              <div style="color:var(--red)">ERROR<small>놓침</small></div>
+              <div style="color:#00d9f5">CRITICAL<small>가장 정확</small></div>
+              <div style="color:#ff2d8a">SYNCED<small>조금 어긋남</small></div>
+              <div style="color:#f5b400">STABLE<small>많이 어긋남</small></div>
+              <div style="color:#ff4040">ERROR<small>놓침</small></div>
             </div>
             <img src="assets/img/play.jpg" alt="플레이 화면" loading="lazy">
-            <div class="table-scroll"><table>
-              <tr><td>SCORE</td><td>최대 1,000,000점입니다. 판정이 정확할수록 많이 받습니다.</td></tr>
+            <table>
+              <tr><td>SCORE</td><td>최대 1,000,000점입니다.</td></tr>
               <tr><td>ACCURACY</td><td>정확도(%)와 등급입니다. 최고 등급은 S+입니다.</td></tr>
               <tr><td>FEVER</td><td>좋은 판정이 쌓이면 배율이 올라 콤보가 빨리 오릅니다(최대 x4).</td></tr>
               <tr><td>FULL COMBO</td><td>ERROR 없이 끝까지 치면 받는 메달입니다.</td></tr>
               <tr><td>ALL CRITICAL</td><td>모든 노트를 CRITICAL로 치면 받는 메달입니다.</td></tr>
-            </table></div>
+            </table>
           </div>
 
-          <div class="g-sec" id="mode">
-            <div class="tag">03</div>
+          <div class="g" id="mode">
             <h2>모드</h2>
-            <p>곡 선택 화면에서 <kbd class="small">SPACE</kbd>를 누르면 라이브 옵션이 열립니다. 여기서 노트 속도와 모드를 바꿉니다.</p>
-            <img src="assets/img/guide_option.png" alt="라이브 옵션" loading="lazy">
-            <div class="table-scroll"><table>
-              <tr><th>모드</th><th>설명</th></tr>
+            <p>곡 선택 화면에서 <kbd class="s">SPACE</kbd>를 누르면 라이브 옵션이 열립니다. 여기서 노트 속도와 모드를 바꿉니다.</p>
+            <table>
               <tr><td>BASIC</td><td>기본 모드입니다. Lv.11 이상 채보만 HP가 0이 되면 실패합니다.</td></tr>
-              <tr><td>GRANULAR</td><td>판정 등급 대신 ms 오차로 점수를 매깁니다. 판정 범위는 BASIC과 같습니다.</td></tr>
+              <tr><td>GRANULAR</td><td>판정 등급 대신 ms 오차로 점수를 매깁니다.</td></tr>
               <tr><td>STANDARD</td><td>판정이 엄격하고 HP가 0이 되면 실패합니다.</td></tr>
               <tr><td>QUANTUM</td><td>CRITICAL 범위가 아주 좁은 고난도 모드입니다.</td></tr>
               <tr><td>ALL CRITICAL</td><td>CRITICAL이 아닌 판정이 하나라도 나오면 실패합니다.</td></tr>
               <tr><td>AUTO PLAY</td><td>자동으로 칩니다. 기록은 남지 않습니다.</td></tr>
-            </table></div>
+            </table>
           </div>
 
-          <div class="g-sec" id="gauge">
-            <div class="tag">04</div>
+          <div class="g" id="gauge">
             <h2>HP 게이지</h2>
-            <p>왼쪽 기둥이 HP입니다. 잘 치면 차오르고, ERROR가 쌓이면 줄어듭니다. 게이지 종류는 설정 PLAY › GAUGE나 라이브 옵션에서 바꿉니다.</p>
-            <img src="assets/img/guide_hp.png" alt="HP 게이지" loading="lazy">
-            <div class="table-scroll"><table>
+            <p>잘 치면 차오르고 ERROR가 쌓이면 줄어듭니다. 설정 PLAY › GAUGE나 라이브 옵션에서 바꿉니다. 게이지마다 클리어 기록이 따로 남습니다.</p>
+            <table>
               <tr><td>NORMAL</td><td>기본 게이지입니다.</td></tr>
-              <tr><td>HARD</td><td>회복은 적고 피해는 큽니다. 실력을 증명하고 싶을 때 씁니다.</td></tr>
+              <tr><td>HARD</td><td>회복은 적고 피해는 큽니다.</td></tr>
               <tr><td>SUDDEN DEATH</td><td>ERROR가 하나라도 나면 바로 끝납니다.</td></tr>
-            </table></div>
-            <p style="margin-top:14px">게이지 종류마다 클리어 기록이 따로 남습니다.</p>
+            </table>
           </div>
 
-          <div class="g-sec" id="hotkeys">
-            <div class="tag">05</div>
+          <div class="g" id="hotkeys">
             <h2>플레이 중 단축키</h2>
-            <p>바꾼 값은 다음 판에도 그대로 남습니다.</p>
-            <div class="table-scroll"><table>
-              <tr><td><kbd class="small">F1</kbd> <kbd class="small">F2</kbd></td><td>노트 속도를 0.1씩 내리고 올립니다.</td></tr>
-              <tr><td><kbd class="small">F3</kbd> <kbd class="small">F4</kbd></td><td>배경 영상(BGA) 밝기를 내리고 올립니다.</td></tr>
-              <tr><td><kbd class="small">F6</kbd></td><td>싱크 스코프를 엽니다. 지금 타이밍이 빠른지 느린지 보여 줍니다.</td></tr>
-              <tr><td><kbd class="small">F7</kbd> <kbd class="small">F8</kbd></td><td>이 곡만 싱크를 조절합니다. 곡마다 따로 저장됩니다.</td></tr>
-              <tr><td><kbd class="small">ESC</kbd></td><td>일시정지합니다.</td></tr>
-              <tr><td><kbd class="small">`</kbd> 길게</td><td>처음부터 바로 다시 시작합니다.</td></tr>
-              <tr><td><kbd class="small">SPACE</kbd></td><td>곡 앞부분이 길면 건너뜁니다(SKIP INTRO).</td></tr>
-            </table></div>
+            <table>
+              <tr><td><kbd class="s">F1</kbd> <kbd class="s">F2</kbd></td><td>노트 속도를 0.1씩 내리고 올립니다.</td></tr>
+              <tr><td><kbd class="s">F3</kbd> <kbd class="s">F4</kbd></td><td>배경 영상 밝기를 내리고 올립니다.</td></tr>
+              <tr><td><kbd class="s">F6</kbd></td><td>싱크 스코프 - 지금 타이밍이 빠른지 느린지 보여 줍니다.</td></tr>
+              <tr><td><kbd class="s">F7</kbd> <kbd class="s">F8</kbd></td><td>이 곡만 싱크를 조절합니다.</td></tr>
+              <tr><td><kbd class="s">ESC</kbd></td><td>일시정지</td></tr>
+              <tr><td><kbd class="s">`</kbd> 길게</td><td>처음부터 다시 시작</td></tr>
+              <tr><td><kbd class="s">SPACE</kbd></td><td>긴 전주 건너뛰기</td></tr>
+            </table>
           </div>
 
-          <div class="g-sec" id="sync">
-            <div class="tag">06</div>
+          <div class="g" id="sync">
             <h2>싱크 맞추기</h2>
             <p>소리와 노트가 어긋나 보이면 PC마다 다른 소리 지연 때문입니다. 처음 한 번 맞춰 두면 판정이 훨씬 편해집니다.</p>
-            <ol class="steps">
-              <li><b>전체 싱크</b><span>설정 SOUND › SYNC OFFSET에서 맞춥니다. 모든 곡에 똑같이 적용됩니다.</span></li>
-              <li><b>결과 화면의 LIVE SYNC</b><span>몇 판을 치고 나면 결과 화면에 내 평균 타이밍에 맞춘 싱크 추천값이 나옵니다.</span></li>
-              <li><b>곡마다 따로</b><span>특정 곡만 어긋나면 플레이 중 <kbd class="small">F7</kbd> <kbd class="small">F8</kbd>로 그 곡만 조절합니다.</span></li>
-            </ol>
+            <table>
+              <tr><td>전체 싱크</td><td>설정 SOUND › SYNC OFFSET. 모든 곡에 똑같이 적용됩니다.</td></tr>
+              <tr><td>LIVE SYNC</td><td>몇 판을 치면 결과 화면에 내 평균 타이밍에 맞춘 추천값이 나옵니다.</td></tr>
+              <tr><td>곡마다 따로</td><td>특정 곡만 어긋나면 플레이 중 <kbd class="s">F7</kbd> <kbd class="s">F8</kbd>로 조절합니다.</td></tr>
+            </table>
           </div>
 
-          <div class="g-sec" id="select">
-            <div class="tag">07</div>
-            <h2>곡 고르기</h2>
-            <p>왼쪽 큰 카드가 지금 고른 곡의 정보, 오른쪽이 곡 목록입니다. 곡마다 BASE · LOAD · OC 세 난이도가 있고, 레벨은 1~10(파랑) · 11~20(빨강)입니다.</p>
-            <img src="assets/img/select.jpg" alt="곡 선택 화면" loading="lazy">
-          </div>
-
-          <div class="g-sec" id="result">
-            <div class="tag">08</div>
-            <h2>결과 · 리플레이</h2>
-            <p>곡이 끝나면 등급 · 점수 · 판정별 개수 · 최대 콤보와 받은 경험치가 나옵니다. 여기서 리플레이와 판정 분석을 볼 수 있고, 최고 기록은 다음 판의 고스트가 됩니다.</p>
-            <img src="assets/img/result.jpg" alt="결과 화면" loading="lazy">
-          </div>
-
-          <div class="g-sec faq" id="faq">
-            <div class="tag">09</div>
+          <div class="g" id="faq">
             <h2>자주 묻는 질문</h2>
-            <details><summary>실행하면 "Windows의 PC 보호" 창이 뜹니다</summary>
-              <p>개인이 만든 게임이라 서명이 없어서 뜨는 창입니다. 추가 정보 → 실행을 누르면 됩니다.</p></details>
-            <details><summary>노트와 소리가 안 맞습니다</summary>
-              <p>위의 <a href="#sync">싱크 맞추기</a>를 보십시오. 블루투스 이어폰은 지연이 커서 유선을 권합니다.</p></details>
-            <details><summary>게임이 끊기거나 느립니다</summary>
-              <p>설정 SYSTEM에서 QUALITY(그래픽 품질)를 LOW로 낮춰 보십시오. 내장 그래픽 PC에서도 돌아가도록 만들어져 있습니다.</p></details>
-            <details><summary>다른 PC에서 기록을 이어서 하고 싶습니다</summary>
-              <p>처음 로그인 창에서 아이디로 로그인하면 다른 PC에서도 같은 계정으로 이어서 할 수 있습니다.</p></details>
-            <details><summary>MACRO DETECTED가 떴습니다</summary>
-              <p>매크로 프로그램이 감지되면 그 판은 기록되지 않습니다. 매크로를 쓰지 않았는데 떴다면 <a href="mailto:systemreboot.1001@gmail.com">systemreboot.1001@gmail.com</a>으로 알려 주십시오.</p></details>
+            <details><summary>실행하면 "Windows의 PC 보호" 창이 뜹니다</summary><p>개인이 만든 게임이라 서명이 없어서 뜨는 창입니다. 추가 정보 → 실행을 누르면 됩니다.</p></details>
+            <details><summary>노트와 소리가 안 맞습니다</summary><p><a href="#sync">싱크 맞추기</a>를 보십시오. 블루투스 이어폰은 지연이 커서 유선을 권합니다.</p></details>
+            <details><summary>게임이 끊기거나 느립니다</summary><p>설정 SYSTEM에서 QUALITY(그래픽 품질)를 LOW로 낮춰 보십시오.</p></details>
+            <details><summary>다른 PC에서 기록을 이어서 하고 싶습니다</summary><p>처음 로그인 창에서 아이디로 로그인하면 같은 계정으로 이어서 할 수 있습니다.</p></details>
+            <details><summary>MACRO DETECTED가 떴습니다</summary><p>매크로가 감지되면 그 판은 기록되지 않습니다. 쓰지 않았는데 떴다면 <a href="mailto:systemreboot.1001@gmail.com">systemreboot.1001@gmail.com</a>으로 알려 주십시오.</p></details>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <span>SYSTEM: REBOOT · 비상업 학교 과제 프로젝트</span>
-      <span>문의 <a href="mailto:systemreboot.1001@gmail.com">systemreboot.1001@gmail.com</a></span>
+      <span>© SYSTEM: REBOOT · 비상업 학교 과제 프로젝트</span>
+      <a href="mailto:systemreboot.1001@gmail.com">systemreboot.1001@gmail.com</a>
     </div>
   </footer>
+
   <script>
 // ===== 설정: 새 버전을 올리면 아래 값만 바꾸면 됩니다 =====
 const SITE = {
@@ -639,6 +466,9 @@ const SITE = {
   SIZE: "약 370MB",
   DOWNLOAD_URL: "", // 구글 드라이브 zip 공유 링크를 여기에 붙여 넣기
   OLD_URL: "",      // 예전 버전을 모아 둔 구글 드라이브 폴더 링크(비워 두면 '예전 버전' 버튼이 숨겨짐)
+  // 플레이 영상: 둘 중 하나만 채우면 됩니다(둘 다 비우면 영상 칸이 숨겨짐)
+  VIDEO_YOUTUBE: "", // 유튜브 영상 주소를 그대로 붙여 넣기(예: https://youtu.be/xxxxxxxxxxx)
+  VIDEO_FILE: "",    // 또는 저장소에 올린 mp4 파일 경로(예: "assets/video/play.mp4", 50MB 이하 권장)
 };
 (function () {
   const links = { zip: SITE.DOWNLOAD_URL, releases: SITE.OLD_URL };
@@ -650,7 +480,6 @@ const SITE = {
   });
   document.querySelectorAll("[data-site]").forEach((el) => { el.textContent = SITE[el.dataset.site] ?? ""; });
 
-  // 페이지 전환: #home · #download · #guide, 가이드 안의 칸(#sync 등)으로 가면 가이드를 열고 그 칸으로 이동
   function show() {
     const id = location.hash.slice(1) || "home";
     const el = document.getElementById(id);
@@ -659,6 +488,71 @@ const SITE = {
     document.querySelectorAll(".nav [data-page]").forEach((a) => a.classList.toggle("on", a.dataset.page === page.id));
     setTimeout(() => { if (el && el !== page) el.scrollIntoView({ behavior: "instant" }); else window.scrollTo({ top: 0, behavior: "instant" }); }, 0);
   }
+  // 플레이 영상
+  (function () {
+    const sec = document.querySelector(".video-sec"), box = sec && sec.querySelector(".video");
+    if (!box) return;
+    const m = (SITE.VIDEO_YOUTUBE || "").match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/) || (/^[\w-]{11}$/.test(SITE.VIDEO_YOUTUBE) ? [0, SITE.VIDEO_YOUTUBE] : null);
+    if (m) {
+      const f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + m[1] + "?rel=0";
+      f.title = "SYSTEM: REBOOT 플레이 영상"; f.loading = "lazy";
+      f.allow = "accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+      box.appendChild(f); sec.hidden = false;
+    } else if (SITE.VIDEO_FILE) {
+      const v = document.createElement("video");
+      v.src = SITE.VIDEO_FILE; v.controls = true; v.preload = "metadata"; v.playsInline = true; v.poster = "assets/img/play.jpg";
+      box.appendChild(v); sec.hidden = false;
+    }
+  })();
+
+  // 게임 화면 슬라이드: 가운데 장이 크게, 좌우 장은 흐리게 · 좌우 버튼 · 점 · 옆 장 클릭 · 손가락으로 밀기 · 키보드 ←→
+  document.querySelectorAll(".slider").forEach((sl) => {
+    const track = sl.querySelector(".track"), slides = [...sl.querySelectorAll(".slide")];
+    const prev = sl.querySelector(".prev"), next = sl.querySelector(".next"), dots = sl.querySelector(".dots");
+    const dotBtns = slides.map((s, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-label", (i + 1) + "번째 화면");
+      b.addEventListener("click", () => go(i));
+      dots.appendChild(b); return b;
+    });
+    let cur = 0;
+    // 화면 기준 위치로 계산(확대 · 축소 효과와 스크롤 위치에 상관없이 가운데를 맞춤)
+    const centerOf = (el) => { const r = el.getBoundingClientRect(); return r.left + r.width / 2; };
+    const leftOf = (s) => track.scrollLeft + centerOf(s) - centerOf(track);
+    let lock = 0; // 버튼으로 넘기는 동안은 스크롤 중간 위치로 현재 장을 다시 계산하지 않음(연속 클릭이 씹히지 않게)
+    function go(i) {
+      i = Math.max(0, Math.min(slides.length - 1, i)); cur = i; mark();
+      clearTimeout(lock); lock = setTimeout(() => { lock = 0; sync(); }, 700);
+      track.scrollTo({ left: leftOf(slides[i]) });
+    }
+    function mark() {
+      slides.forEach((s, i) => s.classList.toggle("on", i === cur));
+      dotBtns.forEach((b, i) => b.setAttribute("aria-selected", i === cur));
+      prev.disabled = cur === 0; next.disabled = cur === slides.length - 1;
+    }
+    function sync() {
+      if (lock) return;
+      const mid = centerOf(track);
+      let best = 0, bd = Infinity;
+      slides.forEach((s, i) => { const d = Math.abs(centerOf(s) - mid); if (d < bd) { bd = d; best = i; } });
+      if (best !== cur) { cur = best; mark(); }
+    }
+    slides.forEach((s, i) => s.addEventListener("click", () => { if (i !== cur) go(i); }));
+    prev.addEventListener("click", () => go(cur - 1));
+    next.addEventListener("click", () => go(cur + 1));
+    track.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+    track.addEventListener("scrollend", () => { if (lock) { clearTimeout(lock); lock = 0; } sync(); });
+    window.addEventListener("resize", () => go(cur));
+    document.addEventListener("keydown", (e) => {
+      if (sl.closest(".page").hidden) return;
+      const r = sl.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+      if (e.key === "ArrowLeft") go(cur - 1); else if (e.key === "ArrowRight") go(cur + 1);
+    });
+    mark();
+    requestAnimationFrame(() => { track.style.scrollBehavior = "auto"; track.scrollLeft = leftOf(slides[0]); track.style.scrollBehavior = ""; });
+  });
+
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.addEventListener("hashchange", show);
   window.addEventListener("load", show);
