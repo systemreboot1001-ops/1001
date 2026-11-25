@@ -223,7 +223,7 @@ footer a:hover { color: var(--text); }
         <li><a href="#download" data-page="download">다운로드</a></li>
         <li><a href="#guide" data-page="guide">가이드</a></li>
       </ul>
-      <a class="btn sm" href="#download">무료 다운로드</a>
+      <a class="btn sm" href="#download">다운로드</a>
     </div>
   </nav>
 
@@ -232,11 +232,11 @@ footer a:hover { color: var(--text); }
     <header class="hero">
       <div class="bg"><img src="assets/img/play.jpg" alt=""></div>
       <div class="wrap">
-        <div class="eyebrow">PC 리듬 게임 · 무료</div>
+        <div class="eyebrow">PC 리듬 게임</div>
         <h1>SYSTEM:<br>REBOOT</h1>
         <p>떨어지는 노트를 판정선에 맞춰 치는 4키 · 6키 리듬 게임입니다. 곡마다 BASE · LOAD · OVERCLOCK 세 난이도가 있습니다.</p>
         <div class="cta">
-          <a class="btn" href="#download">무료 다운로드</a>
+          <a class="btn" href="#download">다운로드</a>
           <a class="btn line" href="#guide">플레이 가이드</a>
         </div>
         <div class="meta">v<span data-site="VERSION"></span> · Windows 10 · 11</div>
@@ -288,10 +288,10 @@ footer a:hover { color: var(--text); }
     <div class="cta-band">
       <div class="wrap">
         <div>
-          <h2>지금 무료로 시작하십시오</h2>
+          <h2>지금 바로 시작하십시오</h2>
           <p>Windows 64비트 · zip을 풀고 바로 실행</p>
         </div>
-        <a class="btn" href="#download">무료 다운로드</a>
+        <a class="btn" href="#download">다운로드</a>
       </div>
     </div>
   </main>
@@ -338,7 +338,8 @@ footer a:hover { color: var(--text); }
           </div>
           <div class="box">
             <h3>업데이트할 때</h3>
-            <p>새 버전 zip을 받아 새 폴더에 풀고 실행하면 됩니다. 세이브는 게임 폴더가 아니라 PC에 따로 저장되므로 기록은 그대로 이어집니다.</p>
+            <p>새 버전 zip을 받아 새 폴더에 풀고 실행하면 됩니다. 세이브와 로그인 상태는 게임 폴더가 아니라 PC에 따로 저장되므로, 기록과 계정이 그대로 이어집니다. 예전 폴더 안에 덮어쓰지 말고 새 폴더에 푸십시오.</p>
+            <p>v0.8.0부터는 새 버전이 나오면 게임을 켤 때 알려 줍니다.</p>
             <p>예전 폴더는 지워도 됩니다.</p>
           </div>
         </div>
@@ -461,10 +462,10 @@ footer a:hover { color: var(--text); }
   <script>
 // ===== 설정: 새 버전을 올리면 아래 값만 바꾸면 됩니다 =====
 const SITE = {
-  VERSION: "0.7.9",
-  DATE: "2026.11.02",
+  VERSION: "0.8.0",
+  DATE: "2026.11.25",
   SIZE: "약 370MB",
-  DOWNLOAD_URL: "", // 구글 드라이브 zip 공유 링크를 여기에 붙여 넣기
+  DOWNLOAD_URL: "https://drive.google.com/file/d/15axl3p6Eqzk-OY1V4x2e9AiKdqIcXlQe/view?usp=sharing", // 구글 드라이브 zip 공유 링크를 여기에 붙여 넣기
   OLD_URL: "",      // 예전 버전을 모아 둔 구글 드라이브 폴더 링크(비워 두면 '예전 버전' 버튼이 숨겨짐)
   // 플레이 영상: 둘 중 하나만 채우면 됩니다(둘 다 비우면 영상 칸이 숨겨짐)
   VIDEO_YOUTUBE: "", // 유튜브 영상 주소를 그대로 붙여 넣기(예: https://youtu.be/xxxxxxxxxxx)
