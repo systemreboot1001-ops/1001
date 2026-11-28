@@ -243,6 +243,28 @@ details[open] summary::after { content: "−"; }
 details p { margin: 0 0 18px; color: var(--body); font-size: 15px; }
 .g a:not(.btn), .steps a:not(.btn), details a, .panel a:not(.btn) { color: var(--cyan); }
 
+/* 패치노트 */
+.rel-wrap { max-width: 900px; }
+.rel { padding: 28px 32px 30px; }
+.rel + .rel { margin-top: 16px; }
+.rel-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.rel-head .v, .old .v { font-family: var(--hud); font-weight: 700; font-size: 26px; letter-spacing: .02em; }
+.rel-head .d, .old .d { font-family: var(--hud); color: var(--muted); font-size: 14px; letter-spacing: .1em; }
+.rel-list { list-style: none; margin: 0; padding: 0; }
+.rel-list li { display: grid; grid-template-columns: 52px 1fr; gap: 14px; padding: 9px 0; border-top: 1px solid var(--edge-soft); color: var(--body); font-size: 15px; }
+.chip { --c: 5px; align-self: start; margin-top: 3px; text-align: center; padding: 1px 0 2px; font: 700 11px var(--hud); letter-spacing: .1em;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
+.chip.new { background: var(--cyan); color: var(--ink); }
+.chip.up { background: var(--surface2); color: var(--cyan); box-shadow: inset 0 0 0 1px rgba(0, 229, 255, .5); }
+.chip.fix { background: var(--surface2); color: var(--pink); box-shadow: inset 0 0 0 1px rgba(255, 42, 109, .5); }
+.chip.latest { padding: 2px 10px 3px; background: var(--pink); color: #fff; align-self: center; margin: 0; }
+.old summary { align-items: baseline; justify-content: flex-start; }
+.old summary::after { margin-left: auto; }
+.old .v { font-size: 20px; }
+.old .rel-list { margin-bottom: 18px; }
+.note-media { display: block; margin: 12px 0 6px; max-width: min(100%, 560px); width: auto; border: 1px solid var(--edge); background: #000; }
+.note-media[src*="laneline"], .note-media[src*="motion"] { max-width: min(100%, 300px); }
+
 /* 바닥 */
 footer { padding: 40px 0 52px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--edge-soft); }
 footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -276,6 +298,8 @@ footer a:hover { color: var(--text); }
   .slider { --sw: 86vw; --gap: 12px; }
   .nav-btn { display: none; }
   .slide figcaption { font-size: 13px; margin-top: 12px; }
+  .rel { padding: 22px 18px 24px; }
+  .rel-list li { grid-template-columns: 44px 1fr; gap: 10px; }
 }
   </style>
 </head>
@@ -287,6 +311,7 @@ footer a:hover { color: var(--text); }
         <li><a href="#home" data-page="home">홈</a></li>
         <li><a href="#download" data-page="download">다운로드</a></li>
         <li><a href="#guide" data-page="guide">가이드</a></li>
+        <li><a href="#notes" data-page="notes">패치노트</a></li>
       </ul>
       <a class="btn sm" href="#download">다운로드</a>
     </div>
@@ -312,7 +337,6 @@ footer a:hover { color: var(--text); }
           <span>SYS.RBT <b>v<span data-site="VERSION"></span></b></span>
           <span>UPDATE <b data-site="DATE"></b></span>
           <span>WINDOWS 10 · 11</span>
-          <span>CORE <span class="ok">ONLINE</span></span>
         </div>
       </div>
     </header>
@@ -322,7 +346,6 @@ footer a:hover { color: var(--text); }
         <div class="sec-head">
           <div class="tag">Gameplay</div>
           <h2 class="sec-title">플레이 영상</h2>
-          <p class="sec-desc">실제로 치는 모습입니다. 소리를 켜고 보십시오.</p>
         </div>
         <div class="video"></div>
       </div>
@@ -333,7 +356,6 @@ footer a:hover { color: var(--text); }
         <div class="sec-head">
           <div class="tag">Features</div>
           <h2 class="sec-title">이런 게임입니다</h2>
-          <p class="sec-desc">혼자 실력을 쌓는 것부터 친구와 겨루고, 직접 채보를 만드는 것까지 할 수 있습니다.</p>
         </div>
         <div class="features">
           <div class="card"><div class="no"><b>01</b> / KEYS</div><h3>4키 · 6키</h3><p>같은 곡을 4키와 6키로 따로 칩니다. 판정 모드와 게이지로 난이도를 고르고, CUSTOM 모드로 판정 범위를 직접 정할 수도 있습니다.</p></div>
@@ -351,7 +373,6 @@ footer a:hover { color: var(--text); }
         <div class="sec-head">
           <div class="tag">Screens</div>
           <h2 class="sec-title">게임 화면</h2>
-          <p class="sec-desc">지금 버전의 실제 화면입니다.</p>
         </div>
         <div class="slider" aria-roledescription="carousel">
           <div class="track">
@@ -371,11 +392,11 @@ footer a:hover { color: var(--text); }
     <div class="cta-band">
       <div class="wrap">
         <div>
-          <div class="tag">Ready</div>
-          <h2>지금 바로 시작하십시오</h2>
-          <p>Windows 64비트 · zip을 풀고 바로 실행</p>
+          <div class="tag">Update</div>
+          <h2>v<span data-site="VERSION"></span> 업데이트</h2>
+          <p data-site="HIGHLIGHT"></p>
         </div>
-        <a class="btn" href="#download">다운로드 <span class="arrow">›</span></a>
+        <a class="btn line" href="#notes">패치노트 보기 <span class="arrow">›</span></a>
       </div>
     </div>
   </main>
@@ -408,10 +429,10 @@ footer a:hover { color: var(--text); }
           <h2 class="sec-title">설치 방법</h2>
         </div>
         <ol class="steps">
-          <li class="card"><b>zip을 받습니다</b><span>위의 버튼을 누르면 구글 드라이브가 열립니다. 오른쪽 위 다운로드를 누르고, "바이러스 검사를 할 수 없음" 안내가 나오면 '무시하고 다운로드'를 누릅니다. 파일이 커서 나오는 안내입니다.</span></li>
-          <li class="card"><b>압축을 풉니다</b><span>zip을 오른쪽 클릭 → 전체 압축 풀기. 바탕화면이나 문서처럼 쓰기 권한이 있는 폴더에 푸십시오(Program Files는 피하십시오).</span></li>
-          <li class="card"><b>SYSTEM_REBOOT.exe를 실행합니다</b><span>처음 실행하면 로그인 창이 나옵니다. 아이디로 로그인하면 다른 PC에서도 기록을 이어서 쓸 수 있고, 비회원으로도 시작할 수 있습니다.</span></li>
-          <li class="card"><b>싱크를 맞춥니다</b><span>처음 한 번 설정에서 SYNC를 맞추면 판정이 훨씬 편해집니다. <a href="#sync">싱크 맞추는 법</a></span></li>
+          <li class="card"><b>zip을 받습니다</b><span>구글 드라이브가 열리면 다운로드를 누릅니다. "바이러스 검사를 할 수 없음"이 나오면 '무시하고 다운로드'를 누르십시오(파일이 커서 나오는 안내입니다).</span></li>
+          <li class="card"><b>압축을 풉니다</b><span>바탕화면이나 문서 폴더에 푸십시오. Program Files 안은 피하십시오.</span></li>
+          <li class="card"><b>SYSTEM_REBOOT.exe를 실행합니다</b><span>로그인하거나 비회원으로 시작합니다. 로그인하면 다른 PC에서도 기록이 이어집니다.</span></li>
+          <li class="card"><b>싱크를 맞춥니다</b><span>처음 한 번 맞춰 두면 판정이 훨씬 편해집니다. <a href="#sync">싱크 맞추는 법</a></span></li>
         </ol>
         <div class="notice"><b>"Windows의 PC 보호" 창이 뜨면</b> 추가 정보 → 실행을 누르십시오. 개인이 만든 게임이라 서명이 없어서 뜨는 창입니다.</div>
 
@@ -429,9 +450,8 @@ footer a:hover { color: var(--text); }
           <div class="panel">
             <div class="tag">Update</div>
             <h3>업데이트할 때</h3>
-            <p>새 버전 zip을 받아 새 폴더에 풀고 실행하면 됩니다. 세이브와 로그인 상태는 게임 폴더가 아니라 PC에 따로 저장되므로, 기록과 계정이 그대로 이어집니다. 예전 폴더 안에 덮어쓰지 말고 새 폴더에 푸십시오.</p>
-            <p>v0.8.0부터는 새 버전이 나오면 게임을 켤 때 알려 줍니다.</p>
-            <p>예전 폴더는 지워도 됩니다.</p>
+            <p>새 zip을 새 폴더에 풀고 실행하면 됩니다. 기록은 PC에 따로 저장되어 그대로 이어지고, 예전 폴더는 지워도 됩니다.</p>
+            <p>새 버전이 나오면 게임을 켤 때 알려 줍니다. 바뀐 점은 <a href="#notes">패치노트</a>에 있습니다.</p>
           </div>
         </div>
       </div>
@@ -444,7 +464,7 @@ footer a:hover { color: var(--text); }
       <div class="page-head">
         <div class="tag">Guide</div>
         <h1>플레이 가이드</h1>
-        <p>게임 안의 GUIDE 메뉴에서는 패턴을 직접 쳐 보며 배울 수 있습니다. 여기는 그 내용을 간단히 정리한 것입니다.</p>
+        <p>패턴은 게임 안 GUIDE 메뉴에서 직접 쳐 보며 배울 수 있습니다.</p>
       </div>
     </div>
     <section style="padding-top: 44px">
@@ -477,7 +497,6 @@ footer a:hover { color: var(--text); }
               <div style="color:#ffc94a">STABLE<small>많이 어긋남</small></div>
               <div style="color:#ff4a4a">ERROR<small>놓침</small></div>
             </div>
-            <div class="shot"><img src="assets/img/play.jpg" alt="플레이 화면" loading="lazy"></div>
             <table>
               <tr><td>SCORE</td><td>최대 1,000,000점입니다.</td></tr>
               <tr><td>ACCURACY</td><td>정확도(%)와 등급입니다. 최고 등급은 S+입니다.</td></tr>
@@ -553,6 +572,32 @@ footer a:hover { color: var(--text); }
     </section>
   </main>
 
+  <!-- ===== 패치노트 (게임 안 SYSTEM UPDATE와 같은 내용 - UpdateNotice.cs에서 만듦) ===== -->
+  <main class="page" id="notes">
+    <div class="wrap rel-wrap">
+      <div class="page-head">
+        <div class="tag">Patch Notes</div>
+        <h1>패치노트</h1>
+      </div>
+    </div>
+    <section style="padding-top: 36px">
+      <div class="wrap rel-wrap">
+          <article class="rel panel"><div class="rel-head"><span class="v">v0.8.2</span><span class="d">2026.11.28</span><span class="chip latest">LATEST</span></div><ul class="rel-list"><li><span class="chip new">NEW</span><span>곡 선택에 GOAL이 생겼습니다. 내 기록으로 다음 목표(랭크까지 조금 남은 곡 · 아직 못 깬 곡)를 골라 주고, N으로 그 곡에 바로 갑니다.<img class="note-media" src="assets/notes/082_goal.webp" alt="곡 선택 화면의 GOAL 줄" loading="lazy"></span></li><li><span class="chip new">NEW</span><span>프로필에 06 MONTHLY(월간 리포트)가 생겼습니다. 한 달 동안의 판 수 · 날짜별 정확도 · 많이 친 곡 · 처음 깬 곡을 보고, P로 이미지로 저장합니다.<img class="note-media" src="assets/notes/082_monthly.webp" alt="프로필 06 MONTHLY 화면" loading="lazy"></span></li><li><span class="chip new">NEW</span><span>결과 화면 S = 구간 분석(곡을 10구간으로 나눈 정확도 · ERROR, 최고 기록과 비교), F = 채보 신고(이상한 구간을 바탕화면 파일에 남김).</span></li><li><span class="chip new">NEW</span><span>판정 글자 움직임(JUDGE MOTION) 6종이 생겼습니다. 테마 세트를 사거나 세트 부품을 모두 모으면 함께 받습니다.<img class="note-media" src="assets/notes/082_motion.webp" alt="판정 글자 움직임 7종" loading="lazy"></span></li><li><span class="chip new">NEW</span><span>설정 VISUAL › LANE LINE에서 레인 구분선 무늬(점선 · 지그재그 · 물결 등)를 고릅니다.<img class="note-media" src="assets/notes/082_laneline.webp" alt="레인 구분선 무늬" loading="lazy"></span></li><li><span class="chip new">NEW</span><span>스킨 컬렉션에 간단히 / 자세히 스위치(V)가 생겼습니다. 간단히는 지금 장착한 기어 · 노트 · 판정(글꼴 · 움직임)만 한눈에 보여 주고, 분류도 NOTE · FONT · GEAR · MOTION 4개로 줄입니다.<img class="note-media" src="assets/notes/082_skinview.webp" alt="스킨 컬렉션 간단히 / 자세히" loading="lazy"></span></li><li><span class="chip new">NEW</span><span>설정 INPUT MODE에 125 · 250 · 500Hz가 생겼습니다(키보드 폴링 레이트에 맞추기).</span></li><li><span class="chip new">NEW</span><span>처음 실행할 때 화면이 많이 끊기면 화질을 한 단계 자동으로 낮춥니다. 판 중 프레임이 많이 떨어졌으면 결과 화면에서 화질을 낮출지 물어봅니다.</span></li><li><span class="chip up">UP</span><span>4K · 6K OC: 곡 소리와 어긋난 노트를 고치고, 처음 · 끝이 곡과 같이 시작하고 끝나도록 맞췄습니다.</span></li><li><span class="chip up">UP</span><span>6K OC가 더 어려워졌습니다. 높은 레벨일수록 노트가 많아지고(OC 20 기준 2,000~2,400개), 한 손으로 몰리는 세 키 동타는 빠른 트릴 말고는 나오지 않으며, 빠른 트릴 안에는 같은 레인 연타가 없습니다.</span></li><li><span class="chip up">UP</span><span>바뀐 채보에 맞춰 레벨 표시가 바뀌었습니다. 바뀐 채보의 예전 최고 기록은 그대로 남습니다.</span></li><li><span class="chip up">UP</span><span>QUALITY LOW가 더 가벼워졌습니다(터미널 · 키 뷰어 끄기, 번쩍임 줄이기 등).</span></li><li><span class="chip up">UP</span><span>시스템 가이드를 14개 주제로 다시 정리하고 사진을 새로 찍었습니다.</span></li><li><span class="chip fix">FIX</span><span>FULL COMBO · ALL CRITICAL 연출 뒤 노래가 끝나기 전에 ENTER가 안 먹던 문제와, 그 연출이 처음 뜰 때 잠깐 멈추던 문제를 고쳤습니다.</span></li><li><span class="chip fix">FIX</span><span>고스트 · 2P 대결의 + / - 점수 차가 오른쪽으로 치우쳐 보이던 것과, 명예의 전당 이름 표시를 고쳤습니다.</span></li></ul></article>
+          <article class="rel panel"><div class="rel-head"><span class="v">v0.8.1</span><span class="d">2026.11.27</span></div><ul class="rel-list"><li><span class="chip up">UP</span><span>6K BASE · LOAD 16곡을 모두 새로 만들었습니다. 곡의 주 선율을 따라가고, 동시치기 · 갑자기 빨라지는 곳을 줄였으며 곡이 끝난 뒤에 노트가 남지 않습니다.</span></li><li><span class="chip up">UP</span><span>4K BASE · LOAD: 곡의 첫 소리부터 노트가 나오고 곡이 끝날 때 같이 끝나도록 처음 · 끝 싱크를 맞췄고, 주 선율에서 어긋난 노트를 고쳤습니다.</span></li><li><span class="chip up">UP</span><span>4K ANTiMATTER. · Celestoria · controlled world · ΣterniX BASE와 Celestoria LOAD를 새로 만들고, ANTiMATTER. LOAD의 정박 동시치기를 줄이고 ßeyØnd the UniVerse LOAD는 곡이 세지는 만큼 노트가 늘어나게 했습니다.</span></li><li><span class="chip up">UP</span><span>판이 마지막 노트가 아니라 노래가 끝날 때 끝납니다. 노트를 다 친 뒤 ENTER를 누르면 바로 결과로 갑니다.</span></li><li><span class="chip up">UP</span><span>바뀐 채보에 맞춰 레벨 표시가 바뀌었습니다. 바뀐 채보의 예전 최고 기록은 그대로 남습니다.</span></li></ul></article>
+          <article class="rel panel"><div class="rel-head"><span class="v">v0.8.0</span><span class="d">2026.11.25</span></div><ul class="rel-list"><li><span class="chip new">NEW</span><span>MODE에 CUSTOM이 생겼습니다. 판정 범위(설정 PLAY › CUSTOM)와 GAME OVER 여부를 직접 정하고, 기록 · 경험치 · 보상은 남지 않습니다. 다인 플레이에서는 쓸 수 없습니다.</span></li><li><span class="chip new">NEW</span><span>로그인 창에 &#x27;로그인 유지&#x27;가 생겼습니다. 끄면 게임을 끌 때 로그아웃합니다(학교 · 부스 같은 공용 PC용). 설정 SYSTEM › ACCOUNT에서 비밀번호를 바꿀 수 있습니다.</span></li><li><span class="chip new">NEW</span><span>새 버전이 나오면 게임을 켤 때 알려 주고, 다운로드 페이지로 바로 갈 수 있습니다(인터넷 연결 시).</span></li><li><span class="chip up">UP</span><span>4K BASE 10곡(ANTiMATTER. · ΣterniX · Lux · Celestoria · Paradise · paradise diver · Otaku Blender.exe · controlled world · to the tomorrow&#x27;s you · ßeyØnd the UniVerse)을 새로 만들었습니다. 곡의 반복 리듬을 따라가고 빈 박자가 길게 비지 않습니다.</span></li><li><span class="chip up">UP</span><span>4K LOAD를 다듬었습니다. 갑자기 빨라지는 곳은 한 번에 3노트까지, 한 손 트릴 · 8레벨 아래 같은 레인 연타를 없애고 어긋난 싱크 · 빈 구간을 맞췄습니다. Celestoria · Paradise · Lux는 주 선율을 따라 새로 만들었습니다.</span></li><li><span class="chip up">UP</span><span>바뀐 채보에 맞춰 레벨 표시가 바뀌었습니다. 바뀐 채보의 예전 최고 기록은 그대로 남습니다.</span></li><li><span class="chip up">UP</span><span>채보 에디터: 타임라인(되감기 · 마디 이동 · 재생 속도), 자동 가이드라인, 게임과 같은 SYNC의 판정선, 남는 확대 · 축소. 미리듣기가 끊기던 문제와 가이드라인 밖 노트를 못 지우던 문제도 고쳤습니다.</span></li><li><span class="chip up">UP</span><span>타이틀 로고 아래 글자 대신 스펙트럼 막대가 한 줄로 이어집니다.</span></li></ul></article>
+        <div class="sec-head" style="margin: 64px 0 16px">
+          <div class="tag">Archive</div>
+          <h2 class="sec-title">이전 버전</h2>
+        </div>
+          <details class="old"><summary><span class="v">v0.7.0 ~ v0.7.9</span><span class="d">2026.10.28 ~ 2026.11.02</span></summary><ul class="rel-list"><li><span class="chip new">NEW</span><span>랭킹: 2주 회차 · 부문별(BASE · LOAD · OC) 전체 랭킹과 친구 랭킹, 어려운 모드 보너스(STANDARD +5% · QUANTUM +10%), 회차 1~3위 플레이트 · 휘장.</span></li><li><span class="chip new">NEW</span><span>기어 스킨 PIANO · KEYBOARD와 키빔 스킨 6종(설정 스킨 BEAM 탭)이 생겼습니다.</span></li><li><span class="chip new">NEW</span><span>테마 세트: 기어 · 노트 · 폰트 · 키빔 짝 세트가 상점에 가끔 나오고 20% 할인됩니다.</span></li><li><span class="chip up">UP</span><span>매크로가 감지되면 랭킹 · 온라인이 정지됩니다(1번째 7일, 2번째부터 영구).</span></li><li><span class="chip up">UP</span><span>곡마다 음악 크기를 자동으로 맞추고, 감상실에 일시정지 · 5초 이동 · 다음 곡이 생겼습니다.</span></li><li><span class="chip up">UP</span><span>Lv.15 이상 OC 채보의 폭타 속 따닥(같은 레인 연타)을 없앴습니다.</span></li><li><span class="chip up">UP</span><span>사무용 PC · 내장 그래픽에서 더 가볍게 돌아갑니다(DirectX 11 우선, LOW 메인 화면 배경 한 장).</span></li><li><span class="chip up">UP</span><span>SYNC OFFSET에 오디오 버퍼 지연이 자동으로 들어가고, 다른 PC의 무거운 세이브는 이 PC에 맞춰 품질을 낮춥니다.</span></li></ul></details>
+          <details class="old"><summary><span class="v">v0.6.0 ~ v0.6.9</span><span class="d">2026.10.24 ~ 2026.10.28</span></summary><ul class="rel-list"><li><span class="chip new">NEW</span><span>계정: 아이디로 로그인 · 회원가입을 할 수 있고, 세이브가 계정에 묶여 다른 PC에서도 이어서 할 수 있습니다.</span></li><li><span class="chip new">NEW</span><span>곡 마스터리와 감상실: 곡을 끝까지 칠수록 마스터리가 쌓이고 카드 테두리 · 칭호 · 엠블럼을 받습니다.</span></li><li><span class="chip new">NEW</span><span>채보 연출 편집: 커스텀 채보에 화면 확대 · 회전 · 흔들림과 장식 그림을 넣을 수 있습니다.</span></li><li><span class="chip new">NEW</span><span>새 곡 6곡: 쉬운 곡 4곡(Route Signal · Neon Standby · Overclock Drift · Pulse Override)과 Ghost Frequency · Bassline Breach.</span></li><li><span class="chip new">NEW</span><span>화면마다 배경음악이 생겼고, 결과 화면 연출이 새로 바뀌었습니다.</span></li><li><span class="chip up">UP</span><span>채보 레벨을 동시치기 · 연타 · 트릴 · 롱노트까지 보고 다시 매겼습니다.</span></li><li><span class="chip up">UP</span><span>매크로 감지와 친구 랭킹 점수 확인으로 기록이 더 공정해졌습니다.</span></li></ul></details>
+          <details class="old"><summary><span class="v">v0.5.0 ~ v0.5.8</span><span class="d">2026.10.21 ~ 2026.10.24</span></summary><ul class="rel-list"><li><span class="chip new">NEW</span><span>온라인 플레이: 최대 5명이 함께 칩니다. 봇을 넣을 수 있고, 방 코드 · 공개방으로 공유기 설정 없이 들어갑니다.</span></li><li><span class="chip new">NEW</span><span>파티 규칙: VERSUS · TEAM 2:2 · SURVIVAL · TOGETHER, 방장은 룰렛으로 곡을 무작위로 고릅니다.</span></li><li><span class="chip new">NEW</span><span>친구: 친구 코드 · 요청 · 대화 · 접속 상태, 이번 주 3곡으로 겨루는 친구 랭킹.</span></li><li><span class="chip new">NEW</span><span>프로필 카드와 시즌 보상 트랙(30단계), 출석 보상이 생겼습니다.</span></li><li><span class="chip new">NEW</span><span>오락실 순위판: 곡마다 오늘 · 전체 TOP 10을 겨룹니다.</span></li><li><span class="chip new">NEW</span><span>새 기믹 레인 금(LANE CRACK)이 추가되었습니다.</span></li></ul></details>
+          <details class="old"><summary><span class="v">v0.4.0 ~ v0.4.8</span><span class="d">2026.10.20 ~ 2026.10.21</span></summary><ul class="rel-list"><li><span class="chip new">NEW</span><span>랭크 티어: 레이팅에 따라 INIT부터 SINGULARITY까지 오르고, 승급할 때 연출과 TOKEN을 받습니다.</span></li><li><span class="chip new">NEW</span><span>코스에 기본 루트와 고수 루트가 생겼고, 완주하면 칭호를 받습니다.</span></li><li><span class="chip new">NEW</span><span>2P 플레이: 키보드 하나로 둘이 함께 치거나 겨룹니다(4K · 6K).</span></li><li><span class="chip new">NEW</span><span>주간 미션: 매주 조건이 붙은 미션 3개가 열립니다.</span></li><li><span class="chip up">UP</span><span>결과 · 통계 · 코스 · 상점 화면을 새로 꾸몄습니다.</span></li></ul></details>
+          <details class="old"><summary><span class="v">v0.3.0 ~ v0.3.9</span><span class="d">2026.10.14 ~ 2026.10.19</span></summary><ul class="rel-list"><li><span class="chip new">NEW</span><span>첫 배포 버전입니다. 세이브 파일이 암호화되어 보호됩니다.</span></li><li><span class="chip new">NEW</span><span>코스 모드와 직접 만드는 커스텀 코스가 생겼습니다.</span></li><li><span class="chip new">NEW</span><span>새 곡 paradise diver - RE:dive - · ΣterniX, Paradise 키음.</span></li><li><span class="chip new">NEW</span><span>메인 화면 테마 · 고스트 상대 고르기 · 출력 장치별 SYNC · GRANULAR 모드 · HUD LAYOUT · KEY VIEWER.</span></li><li><span class="chip new">NEW</span><span>스킨 · 곡 · 코스를 zip 하나로 공유하고 가져올 수 있습니다.</span></li></ul></details>
+      </div>
+    </section>
+  </main>
+
   <footer>
     <div class="wrap">
       <span><span class="sys">SYS.RBT</span> · 비상업 학교 과제 프로젝트</span>
@@ -563,10 +608,11 @@ footer a:hover { color: var(--text); }
   <script>
 // ===== 설정: 새 버전을 올리면 아래 값만 바꾸면 됩니다 =====
 const SITE = {
-  VERSION: "0.8.1",
-  DATE: "2026.11.27",
+  VERSION: "0.8.2",
+  DATE: "2026.11.28",
   SIZE: "약 390MB",
-  DOWNLOAD_URL: "https://drive.google.com/file/d/1LE-g6h_oNuN2OplaQ-kAqkNPtoeLelwi/view?usp=sharing", // 구글 드라이브 zip 공유 링크를 여기에 붙여 넣기
+  HIGHLIGHT: "GOAL · 월간 리포트 · 판정 글자 움직임 · 레인 구분선 무늬 · 스킨 간단히 보기 · OC 채보 수정", // 첫 화면 아래 띠의 이번 업데이트 한 줄 요약
+  DOWNLOAD_URL: "https://drive.google.com/file/d/1TnQydfN4GJZWC4k9MqWSkk00ddVsKzyI/view?usp=sharing", // 구글 드라이브 zip 공유 링크를 여기에 붙여 넣기
   OLD_URL: "",      // 예전 버전을 모아 둔 구글 드라이브 폴더 링크(비워 두면 '예전 버전' 버튼이 숨겨짐)
   // 플레이 영상: 둘 중 하나만 채우면 됩니다(둘 다 비우면 영상 칸이 숨겨짐)
   VIDEO_YOUTUBE: "", // 유튜브 영상 주소를 그대로 붙여 넣기(예: https://youtu.be/xxxxxxxxxxx)
